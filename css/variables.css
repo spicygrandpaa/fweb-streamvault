@@ -1,0 +1,129 @@
+/* ═══════════════════════════════════════════════════════════
+   variables.css — Design Token System
+   All colors, spacing, typography, and motion values live here.
+   Edit this file to retheme the entire site.
+═══════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ─── Color Palette ─────────────────────────────────── */
+  --color-void:        #0A0A0F;   /* Deepest background */
+  --color-depth:       #0F0F16;   /* Card backgrounds */
+  --color-surface:     #16161F;   /* Elevated surfaces */
+  --color-border:      #1E1E2A;   /* Subtle borders */
+  --color-muted:       #2A2A3A;   /* Disabled / inactive */
+
+  --color-silver:      #6B6B80;   /* Secondary text */
+  --color-pearl:       #9999AA;   /* Placeholder text */
+  --color-white:       #F0F0F8;   /* Primary text */
+
+  --color-crimson:     #C8102E;   /* Primary accent — original design */
+  --color-crimson-dim: #8C0A1F;   /* Darker variant */
+  --color-gold:        #D4AF37;   /* Highlight accent */
+  --color-gold-dim:    #9A7E28;   /* Darker gold */
+
+  /* ─── Gradients ─────────────────────────────────────── */
+  --gradient-bg:       radial-gradient(ellipse at 50% 0%, #1A0A14 0%, var(--color-void) 70%);
+  --gradient-card:     linear-gradient(145deg, var(--color-depth) 0%, var(--color-surface) 100%);
+  --gradient-crimson:  linear-gradient(135deg, var(--color-crimson) 0%, var(--color-crimson-dim) 100%);
+  --gradient-gold:     linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dim) 100%);
+  --gradient-vignette: radial-gradient(ellipse at center, transparent 30%, rgba(10, 10, 15, 0.95) 100%);
+
+  /* ─── Typography ─────────────────────────────────────── */
+  --font-display:  'Playfair Display', Georgia, serif;
+  --font-body:     'Inter', system-ui, -apple-system, sans-serif;
+
+  --text-xs:   0.6875rem;   /* 11px */
+  --text-sm:   0.8125rem;   /* 13px */
+  --text-base: 1rem;        /* 16px */
+  --text-md:   1.125rem;    /* 18px */
+  --text-lg:   1.375rem;    /* 22px */
+  --text-xl:   1.75rem;     /* 28px */
+  --text-2xl:  2.25rem;     /* 36px */
+  --text-3xl:  3rem;        /* 48px */
+  --text-4xl:  4rem;        /* 64px */
+
+  --weight-light:   300;
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semi:    600;
+  --weight-bold:    700;
+  --weight-black:   900;
+
+  --leading-tight:  1.1;
+  --leading-snug:   1.3;
+  --leading-normal: 1.5;
+  --leading-loose:  1.8;
+
+  --tracking-tight:   -0.04em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.06em;
+  --tracking-widest:  0.18em;
+  --tracking-ultra:   0.3em;
+
+  /* ─── Spacing Scale ──────────────────────────────────── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ─── Radii ──────────────────────────────────────────── */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* ─── Shadows ─────────────────────────────────────────── */
+  --shadow-card:    0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-hover:   0 24px 64px rgba(0, 0, 0, 0.8);
+  --shadow-crimson: 0 0 40px rgba(200, 16, 46, 0.3);
+  --shadow-gold:    0 0 40px rgba(212, 175, 55, 0.3);
+  --shadow-glow:    0 0 80px rgba(200, 16, 46, 0.15);
+
+  /* ─── Motion ──────────────────────────────────────────── */
+  --ease-out-expo:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo:    cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-cinematic:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-instant: 80ms;
+  --duration-fast:    200ms;
+  --duration-normal:  400ms;
+  --duration-slow:    700ms;
+  --duration-cinematic: 1200ms;
+
+  /* ─── Z-Index Stack ──────────────────────────────────── */
+  --z-base:    0;
+  --z-raised:  10;
+  --z-overlay: 100;
+  --z-modal:   200;
+  --z-top:     999;
+
+  /* ─── Layout ─────────────────────────────────────────── */
+  --max-width:      1280px;
+  --container-pad:  clamp(var(--space-6), 5vw, var(--space-16));
+
+  /* ─── Profile Card Sizing ────────────────────────────── */
+  --profile-avatar-size:        clamp(96px, 18vw, 160px);
+  --profile-avatar-size-mobile: clamp(80px, 22vw, 120px);
+
+}
+
+/* ─── Reduced Motion Overrides ────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast:      0ms;
+    --duration-normal:    0ms;
+    --duration-slow:      0ms;
+    --duration-cinematic: 0ms;
+  }
+}

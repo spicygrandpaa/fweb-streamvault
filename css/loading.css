@@ -1,0 +1,126 @@
+/* ═══════════════════════════════════════════════════════════
+   loading.css — Screen 1: F Identity System
+   Controls the cinematic F reveal + vertical slice collapse.
+   No iris. No brand text. Just the letter and motion.
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Screen ─────────────────────────────────────────────── */
+#screen-loading {
+  background: var(--color-void);
+  overflow: hidden;
+}
+
+/* ─── Loader Root ────────────────────────────────────────── */
+.loader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── F Stage — holds the master letterform ──────────────── */
+/* This element is the reference size/position for all slices. */
+.loader__f-stage {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-raised);
+}
+
+/* ─── F Letterform ───────────────────────────────────────── */
+.loader__f-letter {
+  font-family: var(--font-display);
+  font-size: clamp(140px, 22vw, 220px);
+  font-weight: var(--weight-black);
+  line-height: 1;
+  color: var(--color-crimson);
+  letter-spacing: -0.04em;
+  user-select: none;
+
+  /* Start invisible — JS triggers the reveal */
+  opacity: 0;
+
+  /* Glow layers: inner red core + outer bleed */
+  text-shadow:
+    0 0 40px rgba(200, 16, 46, 0.8),
+    0 0 80px rgba(200, 16, 46, 0.4),
+    0 0 140px rgba(200, 16, 46, 0.15);
+
+  /* State classes applied by JS */
+  transition: opacity 100ms linear;
+}
+
+/* JS adds this class to fade in */
+.loader__f-letter.is-visible {
+  opacity: 1;
+}
+
+/* JS adds this to hide the original once slices take over */
+.loader__f-letter.is-hidden {
+  opacity: 0;
+}
+
+/* ─── Slices Container ───────────────────────────────────── */
+/* JS creates individual slice divs inside here.
+   The container matches the F letter's bounding box exactly. */
+.loader__slices {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: calc(var(--z-raised) + 1);
+
+  /* Hidden until JS activates the slice phase */
+  opacity: 0;
+}
+
+.loader__slices.is-active {
+  opacity: 1;
+}
+
+/* ─── Individual Slice ───────────────────────────────────── */
+/* Each .loader__slice is a horizontal strip of the F letter.
+   JS sets height, overflow, and background-position per slice. */
+.loader__slice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+
+  /* Each slice starts at rest — JS applies transform for the push */
+  transform: translateZ(0) translateX(0) scaleY(1);
+  opacity: 1;
+
+  /* The inner text element mirrors the F letter exactly */
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  line-height: 1;
+  color: var(--color-crimson);
+  letter-spacing: -0.04em;
+  user-select: none;
+
+  text-shadow:
+    0 0 40px rgba(200, 16, 46, 0.8),
+    0 0 80px rgba(200, 16, 46, 0.4),
+    0 0 140px rgba(200, 16, 46, 0.15);
+}
+
+/* ─── Film Grain ─────────────────────────────────────────── */
+.loader__grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 0.022;
+  pointer-events: none;
+  animation: grain-shift 0.4s steps(1) infinite;
+  z-index: var(--z-top);
+}

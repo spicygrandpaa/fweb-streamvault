@@ -1,0 +1,222 @@
+/* ═══════════════════════════════════════════════════════════
+   profiles.css — Screen 3: Who's Watching
+   Premium profile cards with cinematic hover effects.
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Screen Container ───────────────────────────────────── */
+#screen-profiles {
+  background: var(--color-void);
+  background-image:
+    radial-gradient(ellipse at 50% 30%, rgba(200, 16, 46, 0.06) 0%, transparent 60%),
+    var(--gradient-bg);
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Content Wrapper ────────────────────────────────────── */
+.profiles__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(var(--space-10), 6vh, var(--space-16));
+  padding: var(--container-pad);
+  width: 100%;
+  max-width: var(--max-width);
+}
+
+/* ─── Section Heading ────────────────────────────────────── */
+.profiles__heading {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-xl), 4vw, var(--text-3xl));
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  letter-spacing: var(--tracking-tight);
+  text-align: center;
+}
+
+/* ─── Profile Grid ───────────────────────────────────────── */
+.profiles__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(var(--space-8), 4vw, var(--space-16));
+  width: 100%;
+}
+
+/* ─── Individual Profile Card ────────────────────────────── */
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  cursor: pointer;
+  position: relative;
+
+  /* Card rise animation — staggered via inline style set by JS */
+  opacity: 0;
+  animation: card-rise var(--duration-slow) var(--ease-out-expo) forwards;
+}
+
+/* Stagger delays applied in profiles.js */
+.profile-card:nth-child(1) { animation-delay: 0.1s; }
+.profile-card:nth-child(2) { animation-delay: 0.22s; }
+.profile-card:nth-child(3) { animation-delay: 0.34s; }
+
+/* ─── Avatar Wrapper ─────────────────────────────────────── */
+.profile-card__avatar-wrap {
+  position: relative;
+  width: var(--profile-avatar-size);
+  height: var(--profile-avatar-size);
+}
+
+/* ─── Avatar Image Container ─────────────────────────────── */
+.profile-card__avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  position: relative;
+  z-index: var(--z-raised);
+  transition:
+    transform var(--duration-normal) var(--ease-spring),
+    border-color var(--duration-normal) ease;
+}
+
+/* Actual profile image */
+.profile-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-cinematic);
+}
+
+/* Fallback initials (shown if image fails to load) */
+.profile-card__initials {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-2xl), 5vw, var(--text-3xl));
+  font-weight: var(--weight-black);
+  color: var(--color-pearl);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-muted) 100%);
+}
+
+/* ─── Decorative Glow (behind avatar) ───────────────────── */
+.profile-card__glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: calc(var(--radius-xl) + 8px);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(200, 16, 46, 0.35) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  filter: blur(12px);
+  transition:
+    opacity var(--duration-normal) ease,
+    transform var(--duration-normal) ease;
+  z-index: var(--z-base);
+  animation: glow-pulse 3s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+/* ─── Decorative Spinning Ring ───────────────────────────── */
+.profile-card__ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: calc(var(--radius-xl) + 6px);
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--color-depth), var(--color-depth)) padding-box,
+    conic-gradient(
+      from 0deg,
+      var(--color-crimson),
+      var(--color-gold),
+      var(--color-crimson-dim),
+      transparent 60%,
+      var(--color-crimson)
+    ) border-box;
+  opacity: 0;
+  transition: opacity var(--duration-normal) ease;
+  z-index: calc(var(--z-raised) + 1);
+  animation: ring-spin 3s linear infinite;
+  animation-play-state: paused;
+}
+
+/* ─── Hover States ───────────────────────────────────────── */
+.profile-card:hover .profile-card__avatar,
+.profile-card:focus-visible .profile-card__avatar {
+  transform: translateY(-8px) scale(1.04);
+  border-color: var(--color-crimson);
+}
+
+.profile-card:hover .profile-card__img,
+.profile-card:focus-visible .profile-card__img {
+  transform: scale(1.06);
+}
+
+.profile-card:hover .profile-card__glow,
+.profile-card:focus-visible .profile-card__glow {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.profile-card:hover .profile-card__ring,
+.profile-card:focus-visible .profile-card__ring {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.profile-card:hover .profile-card__name,
+.profile-card:focus-visible .profile-card__name {
+  color: var(--color-white);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* Active / click feedback */
+.profile-card:active .profile-card__avatar {
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* ─── Profile Name ───────────────────────────────────────── */
+.profile-card__name {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-silver);
+  letter-spacing: var(--tracking-wide);
+  text-align: center;
+  transition:
+    color var(--duration-normal) ease,
+    letter-spacing var(--duration-normal) var(--ease-cinematic);
+}
+
+/* ─── Responsive: Mobile ─────────────────────────────────── */
+@media (max-width: 600px) {
+  .profiles__grid {
+    gap: var(--space-8);
+  }
+
+  .profile-card__avatar-wrap {
+    width: var(--profile-avatar-size-mobile);
+    height: var(--profile-avatar-size-mobile);
+  }
+
+  /* On mobile, reduce the hover lift to avoid layout issues */
+  .profile-card:hover .profile-card__avatar {
+    transform: translateY(-4px) scale(1.03);
+  }
+}
+
+/* ─── Responsive: Small mobile ────────────────────────────── */
+@media (max-width: 380px) {
+  .profiles__grid {
+    gap: var(--space-6);
+  }
+}
