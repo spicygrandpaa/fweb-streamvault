@@ -93,7 +93,7 @@ const STREAMVAULT_CONFIG = {
           },
           {
             type:  'image',
-            src:   'images/backgrounds/neil-hero-2.jpg',
+            src:   'images/backgrounds/neil-hero-2.JPG',
             title: 'peanut',
           },
           {
