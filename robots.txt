@@ -1,0 +1,3 @@
+# Private website — all crawlers disallowed
+User-agent: *
+Disallow: /
